@@ -16,7 +16,7 @@
                 Label:
                     text: "Flight Height"
                 TextInput:
-                    name: "FlightHeight"
+                    id: FlightHeight
                     text: "Enter the height of the flight here"
                     on_focus: if self.text == "Enter the height of the flight here": self.text = ""
             BoxLayout:
@@ -24,7 +24,7 @@
                 Label:
                     text: "Flight Depth"
                 TextInput:
-                    name: "FlightDepth"
+                    id: FlightDepth
                     text: "Enter the Depth[run] of the flight here"
                     on_focus: if self.text == "Enter the Depth[run] of the flight here": self.text = ""
         BoxLayout:
@@ -33,13 +33,14 @@
                 Label:
                     text: "Min Stair Height"
                 TextInput:
-                    name: "MinStairHeight"
+                    id: MinStairHeight
                     text: "Enter the min height of each stair here"
                     on_focus: if self.text == "Enter the min height of each stair here": self.text = ""
                 Label:
                     text: "Max Stair Height"
+                    
                 TextInput:
-                    name: 'Max_Stair_Height'
+                    id: MaxStairHeight
                     text: 'Enter the max height of each stair here'
                     on_focus: if self.text == 'Enter the max height of each stair here': self.text = ""
             BoxLayout:
@@ -47,13 +48,13 @@
                 Label:
                     text: "Min Stair Stair Depth"
                 TextInput:
-                    name: "MinStairDepth"
+                    id: MinStairDepth
                     text: "Enter the min Depth of each stair here"
                     on_focus: if self.text == "Enter the min Depth of each stair here": self.text = ""
                 Label:
                     text: "Max Stair Depth"
                 TextInput:
-                    name: 'Max_Stair_Depth'
+                    id: MaxStairDepth
                     text: 'Enter the max Depth of each stair here'
                     on_focus: if self.text == 'Enter the max Depth of each stair here': self.text = "" 
         Button:
