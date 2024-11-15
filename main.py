@@ -4,6 +4,7 @@ from kivy.uix.label  import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.properties import NumericProperty
 import math
 import pandas as pd
 import os
@@ -12,9 +13,32 @@ import os
 class StairCalc(ScreenManager):
     pass
 
-
 class MainScreen(Screen):
-    pass
+    staircase_height = None
+    staircase_run = None
+    stair_max_height = None
+    stair_min_height = None
+    stair_max_depth = None
+    stair_min_depth = None
+
+    solutions = []
+
+    def submit(self):
+        self.staircase_height = float(self.ids.StaircaseHeight.text)
+        self.staircase_run = float(self.ids.StaircaseDepth.text)
+        self.stair_max_height = float(self.ids.MaxStairHeight.text)
+        self.stair_min_height = float(self.ids.MinStairHeight.text)
+        self.stair_max_depth = float(self.ids.MaxStairDepth.text)
+        self.stair_min_depth = float(self.ids.MinStairDepth.text)
+
+        self.solutions = flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
+
+        # --- Validation Here ---
+
+        print(flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth))
+
+
+
 
 
 class StairCalcApp(App):
@@ -81,7 +105,7 @@ def frange(start, stop, step):
         yield start
         start += step
 
-print(flight_calculator(216,180,10,8,10,6))
+
 
 
 

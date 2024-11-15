@@ -16,7 +16,7 @@
                 Label:
                     text: "Flight Height"
                 TextInput:
-                    id: FlightHeight
+                    id: StaircaseHeight
                     text: "Enter the height of the flight here"
                     on_focus: if self.text == "Enter the height of the flight here": self.text = ""
             BoxLayout:
@@ -24,7 +24,7 @@
                 Label:
                     text: "Flight Depth"
                 TextInput:
-                    id: FlightDepth
+                    id: StaircaseDepth
                     text: "Enter the Depth[run] of the flight here"
                     on_focus: if self.text == "Enter the Depth[run] of the flight here": self.text = ""
         BoxLayout:
@@ -58,7 +58,8 @@
                     text: 'Enter the max Depth of each stair here'
                     on_focus: if self.text == 'Enter the max Depth of each stair here': self.text = "" 
         Button:
-            text: "Calculate"  
+            text: "Calculate" 
+            on_press: root.submit()
             size_hint_y: .5
         BoxLayout:
             BoxLayout:
@@ -66,19 +67,19 @@
                 Label:
                     text: "Number of Stairs"
                 Label:
-                    text: "3656"
+                    text: "Number of Stairs"
             BoxLayout:
                 orientation: 'vertical'
                 Label:
                     text: 'Tread_Depth'
                 Label:
-                    text: "3456"
+                    text: # str(root.solutons[0][0])
             BoxLayout:
                 orientation: 'vertical'
                 Label:
                     text: 'Stair Height'
                 Label:
-                    text: '1346'
+                    text: # str(root.solutons[0][1])
             BoxLayout:
                 orientation: 'vertical'
                 Button:
