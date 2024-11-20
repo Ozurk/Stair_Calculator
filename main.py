@@ -22,6 +22,7 @@ class MainScreen(Screen):
     stair_min_depth = None
 
     solutions = []
+    example_triangle = []
 
     def submit(self):
         self.staircase_height = float(self.ids.StaircaseHeight.text)
@@ -32,10 +33,14 @@ class MainScreen(Screen):
         self.stair_min_depth = float(self.ids.MinStairDepth.text)
 
         self.solutions = flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
+        self.ids.Tread_Depth.text = str(self.solutions[0][0])
+        self.ids.Stair_Height.text = str(self.solutions[0][1])
+        self.ids.NumberofStairs.text = str(math.sqrt((self.staircase_height) ** 2 + (self.staircase_run) ** 2 / self.solutions[0][2]))
+        print(self.solutions[0])
+
 
         # --- Validation Here ---
 
-        print(flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth))
 
 
 
