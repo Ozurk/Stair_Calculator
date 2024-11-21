@@ -5,7 +5,7 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import NumericProperty
-from StairCalc import Flight_Calculator
+from calculation import flight_calculator
 import math
 import pandas as pd
 import os
@@ -37,7 +37,7 @@ class MainScreen(Screen):
         self.stair_max_depth = float(self.ids.MaxStairDepth.text)
         self.stair_min_depth = float(self.ids.MinStairDepth.text)
 
-        self.solutions = StairCalc.flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
+        self.solutions = flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
         self.ids.Tread_Depth.text = str(self.solutions[0][0])
         self.ids.Stair_Height.text = str(self.solutions[0][1])
         self.hypotenuse = math.sqrt((self.staircase_height ** 2) + (self.staircase_run ** 2))
@@ -53,7 +53,7 @@ class MainScreen(Screen):
                 self.iteration += 1
             else:
                 self.iteration = 0
-            self.solutions = Flight_Calculator.flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
+            self.solutions = flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
             self.ids.Tread_Depth.text = str(self.solutions[self.iteration][0])
             self.ids.Stair_Height.text = str(self.solutions[self.iteration][1])
             self.hypotenuse = math.sqrt((self.staircase_height ** 2) + (self.staircase_run ** 2))
