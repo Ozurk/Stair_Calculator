@@ -20,11 +20,15 @@ class MainScreen(Screen):
     stair_min_height = None
     stair_max_depth = None
     stair_min_depth = None
+    number_of_stairs = None
+    hypotenuse = None
+    iteration = 0
 
     solutions = []
     example_triangle = []
 
     def submit(self):
+        self.iteration = 0
         self.staircase_height = float(self.ids.StaircaseHeight.text)
         self.staircase_run = float(self.ids.StaircaseDepth.text)
         self.stair_max_height = float(self.ids.MaxStairHeight.text)
@@ -35,14 +39,34 @@ class MainScreen(Screen):
         self.solutions = flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
         self.ids.Tread_Depth.text = str(self.solutions[0][0])
         self.ids.Stair_Height.text = str(self.solutions[0][1])
-        self.ids.NumberofStairs.text = str(math.sqrt((self.staircase_height) ** 2 + (self.staircase_run) ** 2 / self.solutions[0][2]))
-        print(self.solutions[0])
+        self.hypotenuse = math.sqrt((self.staircase_height ** 2) + (self.staircase_run ** 2))
+        self.number_of_stairs = round((self.hypotenuse / self.solutions[0][2]),2)
+        self.ids.NumberofStairs.text = str(self.number_of_stairs)
+
+        print(self.solutions[0][2])
+        print(self.hypotenuse)
+    
+    def next(self):
+        try:
+            self.iteration += 1
+            self.solutions = flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
+            self.ids.Tread_Depth.text = str(self.solutions[self.iteration][0])
+            self.ids.Stair_Height.text = str(self.solutions[self.iteration][1])
+            self.hypotenuse = math.sqrt((self.staircase_height ** 2) + (self.staircase_run ** 2))
+            self.number_of_stairs = round((self.hypotenuse / self.solutions[self.iteration][2]), 2)
+            self.ids.NumberofStairs.text = str(self.number_of_stairs)
+        except IndexError:
+            self.iteration = 0
+
+        print(self.solutions[self.iteration][2])
+        print(self.hypotenuse)
+        print(self.iteration)
+        
+        
+
 
 
         # --- Validation Here ---
-
-
-
 
 
 
@@ -72,7 +96,7 @@ def flight_calculator(rise_of_fight, run_of_flight, stair_max_height, stair_min_
 
 def big_triangle_tester(big_triangle, little_triangle):
     modulo = big_triangle[2] % little_triangle[2]
-    if modulo < .5:
+    if modulo < .1:
         return little_triangle
         
 

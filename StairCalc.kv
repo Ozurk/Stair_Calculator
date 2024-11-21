@@ -14,7 +14,7 @@
             BoxLayout:
                 orientation: "vertical"
                 Label:
-                    text: "Flight Height"
+                    text: "Flight Height in Inches"
                 TextInput:
                     id: StaircaseHeight
                     text: '100'
@@ -22,7 +22,7 @@
             BoxLayout:
                 orientation: 'vertical'
                 Label:
-                    text: "Flight Depth"
+                    text: "Flight Depth in Inches"
                 TextInput:
                     id: StaircaseDepth
                     text: '100'
@@ -87,3 +87,4 @@
                 orientation: 'vertical'
                 Button:
                     text: "Next"
+                    on_press: root.next()
