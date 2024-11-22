@@ -1,93 +1,90 @@
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label  import Label
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import NumericProperty
-from calculation import flight_calculator
 import math
-import pandas as pd
-import os
+from calculation import flight_calculator
 
-    
 class StairCalc(ScreenManager):
     pass
 
+
 class MainScreen(Screen):
-    staircase_height = None
-    staircase_run = None
-    stair_max_height = None
-    stair_min_height = None
-    stair_max_depth = None
-    stair_min_depth = None
-    number_of_stairs = None
-    hypotenuse = None
-    iteration = 0
+    staircase_height = NumericProperty(0)
+    staircase_run = NumericProperty(0)
+    stair_max_height = NumericProperty(0)
+    stair_min_height = NumericProperty(0)
+    stair_max_depth = NumericProperty(0)
+    stair_min_depth = NumericProperty(0)
+    number_of_stairs = NumericProperty(0)
+    hypotenuse = NumericProperty(0)
+    iteration = NumericProperty(0)
 
     solutions = []
-    example_triangle = []
+
+    def validate_input(self, value):
+        """Validate numeric input."""
+        try:
+            return float(value)
+        except ValueError:
+            return None
 
     def submit(self):
+        # Validate inputs
+        inputs = [
+            ("StaircaseHeight", "staircase_height"),
+            ("StaircaseDepth", "staircase_run"),
+            ("MaxStairHeight", "stair_max_height"),
+            ("MinStairHeight", "stair_min_height"),
+            ("MaxStairDepth", "stair_max_depth"),
+            ("MinStairDepth", "stair_min_depth"),
+        ]
+        for widget_id, attr in inputs:
+            value = self.validate_input(self.ids[widget_id].text)
+            if value is None:
+                self.ids.NumberofStairs.text = "Invalid input!"
+                return
+            setattr(self, attr, value)
+
+        # Calculate solutions
         self.iteration = 0
-        self.staircase_height = float(self.ids.StaircaseHeight.text)
-        self.staircase_run = float(self.ids.StaircaseDepth.text)
-        self.stair_max_height = float(self.ids.MaxStairHeight.text)
-        self.stair_min_height = float(self.ids.MinStairHeight.text)
-        self.stair_max_depth = float(self.ids.MaxStairDepth.text)
-        self.stair_min_depth = float(self.ids.MinStairDepth.text)
+        self.solutions = flight_calculator(
+            self.staircase_height,
+            self.staircase_run,
+            self.stair_max_height,
+            self.stair_min_height,
+            self.stair_max_depth,
+            self.stair_min_depth,
+        )
+        if not self.solutions:
+            self.ids.NumberofStairs.text = "No solutions found!"
+            return
 
-        self.solutions = flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
-        self.ids.Tread_Depth.text = str(self.solutions[0][0])
-        self.ids.Stair_Height.text = str(self.solutions[0][1])
-        self.hypotenuse = math.sqrt((self.staircase_height ** 2) + (self.staircase_run ** 2))
-        self.number_of_stairs = round((self.hypotenuse / self.solutions[0][2]),2)
-        self.ids.NumberofStairs.text = str(self.number_of_stairs)
+        # Update the display
+        self.hypotenuse = math.sqrt(self.staircase_height ** 2 + self.staircase_run ** 2)
+        self.update_solution()
 
-        print(self.solutions[0][2])
-        print(self.hypotenuse)
-    
     def next(self):
-        try:
-            if self.iteration + 1 < len(self.solutions):
-                self.iteration += 1
-            else:
-                self.iteration = 0
-            self.solutions = flight_calculator(self.staircase_height,self.staircase_run, self.stair_max_height, self.stair_min_height, self.stair_max_depth, self.stair_min_depth)
-            self.ids.Tread_Depth.text = str(self.solutions[self.iteration][0])
-            self.ids.Stair_Height.text = str(self.solutions[self.iteration][1])
-            self.hypotenuse = math.sqrt((self.staircase_height ** 2) + (self.staircase_run ** 2))
-            self.number_of_stairs = round((self.hypotenuse / self.solutions[self.iteration][2]), 2)
-            self.ids.NumberofStairs.text = str(self.number_of_stairs)
-        except IndexError:
-            self.iteration = 0
+        """Show the next solution."""
+        if not self.solutions:
+            return
+        self.iteration = (self.iteration + 1) % len(self.solutions)
+        self.update_solution()
 
-        print(self.solutions[self.iteration][2])
-        print(self.hypotenuse)
-        print(self.iteration)
-        
-        
+    def update_solution(self):
+        """Update the displayed solution."""
+        solution = self.solutions[self.iteration]
+        self.ids.Tread_Depth.text = f"{solution[0]:.2f}"
+        self.ids.Stair_Height.text = f"{solution[1]:.2f}"
+        self.number_of_stairs = round(self.hypotenuse / solution[2], 2)
+        self.ids.NumberofStairs.text = f"{self.number_of_stairs}"
 
-
-
-        # --- Validation Here ---
-
+    # Additional methods can be added here for future features
 
 
 class StairCalcApp(App):
     def build(self):
-        app = StairCalc()
-        return app
-
-
-
-
-
-
-
+        return StairCalc()
 
 
 if __name__ == '__main__':
-    app = StairCalcApp()
-    app.run()
-
+    StairCalcApp().run()
