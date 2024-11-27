@@ -3,7 +3,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import NumericProperty
 import math
 from calculation import flight_calculator
-
+from kivy.base import Builder
+Builder.load_file("StairCalc.kv")
 class StairCalc(ScreenManager):
     pass
 
