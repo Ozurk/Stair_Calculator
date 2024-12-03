@@ -4,12 +4,12 @@ from kivy.properties import NumericProperty
 import math
 from calculation import flight_calculator
 from kivy.base import Builder
-Builder.load_file("StairCalc.kv")
+# Builder.load_file("StairCalc.kv") uncomment for linux and android
 class StairCalc(ScreenManager):
     pass
 
 
-class MainScreen(Screen):
+class StairSize(Screen):
     staircase_height = NumericProperty(0)
     staircase_run = NumericProperty(0)
     stair_max_height = NumericProperty(0)
@@ -82,6 +82,12 @@ class MainScreen(Screen):
         self.ids.NumberofStairs.text = f"{self.number_of_stairs}"
 
     # Additional methods can be added here for future features
+
+class StartScreen(Screen):
+    pass
+
+class Flight_Calculator(Screen):
+    pass
 
 
 class StairCalcApp(App):

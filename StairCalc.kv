@@ -1,9 +1,11 @@
 <StairCalc>
-    MainScreen:
+    StartScreen:
+    StairSize:
+    Flight_Calculator:
 
 
-<MainScreen>
-    name: "MainScreen"
+<StairSize>
+    name: "StairSize"
     BoxLayout:
         orientation: "vertical"
         Label:
@@ -91,3 +93,45 @@
                 Button:
                     text: "Next"
                     on_press: root.next()
+
+<StartScreen>
+    name: "StarScreen"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Stair Calculator" 
+            font_size: "35"
+            font_name: "Roboto"
+        BoxLayout:
+            padding: 20
+            orientation: "horizontal"
+            Button:
+                text: "Solve For Flight Run"
+                on_press: app.root.current = "Flight_Calculator"
+            Button:
+                text: "Solve for Stair Size"
+                on_press: app.root.current = "StairSize"
+
+<Flight_Calculator>
+    name: "Flight_Calculator"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Flight Height"
+        TextInput:
+            text: "Input the Height of the Flight Here."
+            on_focus: if self.text == "Input the Height of the Flight Here.": self.text = "" 
+        Label:
+            text: "Stair Height"
+        TextInput:
+            text: "Input the Height of the Stair Here"
+            on_focus: if self.text == "Input the Height of the Stair Here": self.text = "" 
+        Label:
+            text: "Stair Depth"
+            on_focus: if self.text == "Input the Depth of Each Stair Here": self.text = "" 
+        Button:
+            Text: "Calculate"
+            
+
+        
+            
