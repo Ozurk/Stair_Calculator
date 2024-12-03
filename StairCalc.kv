@@ -7,17 +7,18 @@
     BoxLayout:
         orientation: "vertical"
         Label:
+            id: MainLabel
             text: "Stair Calculator"
-            font_size: 25
-            size_hint_y: .5
-        BoxLayout:   
+            font_size: 20
+            size_hint_y: .25
+        BoxLayout:  
             BoxLayout:
                 orientation: "vertical"
                 Label:
                     text: "Flight Height in Inches"
                 TextInput:
                     id: StaircaseHeight
-                    text: '100'
+                    text: 'Enter StairCase Height'
                     on_focus: if self.text == "Enter the height of the flight here": self.text = ""
             BoxLayout:
                 orientation: 'vertical'
@@ -25,7 +26,7 @@
                     text: "Flight Depth in Inches"
                 TextInput:
                     id: StaircaseDepth
-                    text: '100'
+                    text: 'Enter StairCase Depth'
                     on_focus: if self.text == "Enter the Depth[run] of the flight here": self.text = ""
         BoxLayout:
             BoxLayout:
@@ -34,28 +35,28 @@
                     text: "Min Stair Height"
                 TextInput:
                     id: MinStairHeight
-                    text: '1'
+                    text: 'Enter Min Stair Height'
                     on_focus: if self.text == "Enter the min height of each stair here": self.text = ""
                 Label:
                     text: "Max Stair Height"
                     
                 TextInput:
                     id: MaxStairHeight
-                    text: '10'
+                    text: 'Max Stair Height'
                     on_focus: if self.text == 'Enter the max height of each stair here': self.text = ""
             BoxLayout:
                 orientation: 'vertical'
                 Label:
-                    text: "Min Stair Stair Depth"
+                    text: "Minimum Stair Depth"
                 TextInput:
                     id: MinStairDepth
-                    text: '1'
+                    text: '11'
                     on_focus: if self.text == "Enter the min Depth of each stair here": self.text = ""
                 Label:
                     text: "Max Stair Depth"
                 TextInput:
                     id: MaxStairDepth
-                    text: '10'
+                    text: 'Max Stair Depth'
                     on_focus: if self.text == 'Enter the max Depth of each stair here': self.text = "" 
         Button:
             text: "Calculate" 
@@ -64,6 +65,7 @@
         BoxLayout:
             BoxLayout:
                 orientation: 'vertical'
+                id: "Number_of_Stairs"
                 Label:
                     text: "Number of Stairs"
                 Label:
@@ -78,6 +80,7 @@
                     text: 
             BoxLayout:
                 orientation: 'vertical'
+                id: "Stair_Height"
                 Label:
                     text: 'Stair Height'
                 Label:

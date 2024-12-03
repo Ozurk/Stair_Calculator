@@ -41,7 +41,8 @@ class MainScreen(Screen):
         for widget_id, attr in inputs:
             value = self.validate_input(self.ids[widget_id].text)
             if value is None:
-                self.ids.NumberofStairs.text = "Invalid input!"
+                self.ids.MainLabel.text = "Invalid input!"
+                self.ids.MainLabel.color = [1, 0, 0, 1]
                 return
             setattr(self, attr, value)
 
@@ -56,7 +57,8 @@ class MainScreen(Screen):
             self.stair_min_depth,
         )
         if not self.solutions:
-            self.ids.NumberofStairs.text = "No solutions found!"
+            self.ids.MainLabel.text = "No solutions found!"
+            self.ids.MainLabel.color = [1, 0, 0, 1]
             return
 
         # Update the display
