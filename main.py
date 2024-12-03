@@ -2,7 +2,8 @@ from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import NumericProperty
 import math
-from calculation import flight_calculator
+from calculation import flight_calculator # Rename this 
+from calculation import flight_calc
 from kivy.base import Builder
 # Builder.load_file("StairCalc.kv") uncomment for linux and android
 class StairCalc(ScreenManager):
@@ -87,9 +88,18 @@ class StartScreen(Screen):
     pass
 
 class Flight_Calculator(Screen):
-    pass
-
-
+    flight_height = None
+    flight_depth = None
+    stair_height = None
+    stair_depth = None
+    number_of_stairs = None
+    def calculate(self):
+        self.flight_height = float(self.ids.Flight_Height.text)
+        self.stair_height = float(self.ids.Stair_Height.text)
+        self.stair_depth = float(self.ids.Stair_Depth.text)
+        self.flight_depth = round(float(flight_calc(self.flight_height, self. stair_height, self.stair_depth)), 2)
+        self.ids.CalcDepth.text = str(self.flight_depth)
+        
 class StairCalcApp(App):
     def build(self):
         return StairCalc()

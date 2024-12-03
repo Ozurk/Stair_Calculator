@@ -45,3 +45,8 @@ def frange(start, stop, step):
     while start <= stop:
         yield start
         start += step
+
+def flight_calc(flight_height, stair_height, stair_depth):
+    number_of_stairs = flight_height / stair_height
+    staircase_depth = stair_depth * number_of_stairs
+    return staircase_depth

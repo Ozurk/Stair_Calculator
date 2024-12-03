@@ -93,9 +93,14 @@
                 Button:
                     text: "Next"
                     on_press: root.next()
+        Button:
+            text: "Go Back"
+            background_color: (1,.5,0,1)
+            on_press: app.root.current = "StartScreen"
+            size_hint_y: .8
 
 <StartScreen>
-    name: "StarScreen"
+    name: "StartScreen"
     BoxLayout:
         orientation: "vertical"
         Label:
@@ -119,19 +124,42 @@
         Label:
             text: "Flight Height"
         TextInput:
+            id: Flight_Height
             text: "Input the Height of the Flight Here."
             on_focus: if self.text == "Input the Height of the Flight Here.": self.text = "" 
+
         Label:
             text: "Stair Height"
+
         TextInput:
+            id: Stair_Height
             text: "Input the Height of the Stair Here"
             on_focus: if self.text == "Input the Height of the Stair Here": self.text = "" 
+
         Label:
             text: "Stair Depth"
-            on_focus: if self.text == "Input the Depth of Each Stair Here": self.text = "" 
+
+        TextInput:
+            id: Stair_Depth
+            text: "Enter the Stair Depth Here"
+            on_focus: if self.text == "Enter the Stair Depth Here": self.text = ""
+        BoxLayout:
+            Button:
+                text: "Calculate"
+                on_press: root.calculate()
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    text: "Calculated StairCase Run (Inches)"
+                Label:
+                    id: CalcDepth
+                    text: ""
+                    font_size: 30 
         Button:
-            Text: "Calculate"
-            
+            text: "Go Back"
+            background_color: (1,.5,0,1)
+            on_press: app.root.current = "StartScreen"
+
 
         
             
