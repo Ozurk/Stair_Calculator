@@ -6,6 +6,9 @@ from calculation import flight_calculator # Rename this
 from calculation import flight_calc
 from kivy.base import Builder
 # Builder.load_file("StairCalc.kv") uncomment for linux and android
+from kivy.core.text import FontContextManager as FCM
+
+
 class StairCalc(ScreenManager):
     pass
 
@@ -81,6 +84,7 @@ class StairSize(Screen):
         self.ids.Stair_Height.text = f"{solution[1]:.2f}"
         self.number_of_stairs = round(self.hypotenuse / solution[2], 2)
         self.ids.NumberofStairs.text = f"{self.number_of_stairs}"
+        self.ids.MainLabel.text = ""
 
     # Additional methods can be added here for future features
 
@@ -94,11 +98,18 @@ class Flight_Calculator(Screen):
     stair_depth = None
     number_of_stairs = None
     def calculate(self):
-        self.flight_height = float(self.ids.Flight_Height.text)
-        self.stair_height = float(self.ids.Stair_Height.text)
-        self.stair_depth = float(self.ids.Stair_Depth.text)
-        self.flight_depth = round(float(flight_calc(self.flight_height, self. stair_height, self.stair_depth)), 2)
-        self.ids.CalcDepth.text = str(self.flight_depth)
+        try:
+            self.flight_height = float(self.ids.Flight_Height.text)
+            self.stair_height = float(self.ids.Stair_Height.text)
+            self.stair_depth = float(self.ids.Stair_Depth.text)
+            self.flight_depth = round(float(flight_calc(self.flight_height, self. stair_height, self.stair_depth)), 2)
+            self.ids.CalcDepth.text = str(self.flight_depth)
+            self.ids.WarningLabel.text = ""
+        except ValueError:
+            self.ids.WarningLabel.text = "Invalid Input"
+            self.ids.WarningLabel.color = (1, 0, 0, 1)
+        except ZeroDivisionError:
+            self.ids.WarningLabel.text = "Cannot Divide by Zero"
         
 class StairCalcApp(App):
     def build(self):
