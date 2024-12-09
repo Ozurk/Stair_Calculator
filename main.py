@@ -84,7 +84,7 @@ class StairSize(Screen):
         self.ids.Stair_Height.text = f"{solution[1]:.2f}"
         self.number_of_stairs = round(self.hypotenuse / solution[2], 2)
         self.ids.NumberofStairs.text = f"{self.number_of_stairs}"
-        self.ids.MainLabel.text = ""
+        self.ids.MainLabel.text = "Stair Calulator[Fixed Staircase Depth]"
 
     # Additional methods can be added here for future features
 

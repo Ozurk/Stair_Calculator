@@ -7,64 +7,191 @@
 <StairSize>
     name: "StairSize"
     BoxLayout:
-        orientation: 'vertical'
-        GridLayout:
-            cols: 2
-            rows: 6
-            Label:
-                text: "Flight Height in Inches"
-                font_name: "cambria.ttc"
-                font_size: 25
-            TextInput:
-                id: StaircaseHeight
-                text: 'Enter StairCase Height'
-                on_focus: if self.text == "Enter StairCase Height": self.text = ""
-                input_type: "number"
-            Label:
-                text: "Flight Depth in Inches"
-                font_name: "cambria.ttc"
-                font_size: 25
-            TextInput:
-                id: StaircaseDepth
-                text: 'Enter Stair Case Depth'
-                on_focus: if self.text == "Enter Stair Case Depth": self.text = ""
-            
-            Label:
-                text: "Min Stair Height"
-                font_name: "cambria.ttc"
-                font_size: 25
-            TextInput:
-                id: MinStairHeight
-                text: 'Enter Min Stair Height'
-                on_focus: if self.text == "Enter Min Stair Height": self.text = ""
-                input_type: "number"
-            Label:
-                text: "Max Stair Height"
-                font_name: "cambria.ttc"
-                font_size: 25
-            TextInput:
-                id: MaxStairHeight
-                text: 'Max Stair Height'
-                on_focus: if self.text == 'Max Stair Height': self.text = ""
-                input_type: "number"
-            Label:
-                text: "Minimum Stair Depth"
-                font_name: "cambria.ttc"
-                font_size: 25
-            TextInput:
-                id: MinStairDepth
-                text: '11'
-                on_focus: if self.text == "Enter the min Depth of each stair here": self.text = ""
-                input_type: "number"
-            Label:
-                text: "Max Stair Depth"
-                font_name: "cambria.ttc"
-                font_size: 25
-            TextInput:
-                id: MaxStairDepth
-                text: 'Max Stair Depth'
-                on_focus: if self.text == 'Enter the max Depth of each stair here': self.text = "" 
-                input_type: "number"
+        orientation: "vertical"
+        Label:
+            id: MainLabel
+            text: "StairCalculator[Restricted StairCase Run]"
+            font_name: "Cambriab.ttf"
+            font_size: 40
+            size_hint_y: .2
+        BoxLayout:
+            orientation: 'horizontal'
+            GridLayout:
+                cols: 1
+                rows: 6
+                spacing: 20
+                padding: 20
+                Label:
+                    text: "Flight Height in Inches"
+                    font_name: "cambria.ttc"
+                    font_size: 25
+                
+                Label:
+                    text: "Flight Depth in Inches"
+                    font_name: "cambria.ttc"
+                    font_size: 25
+                
+                Label:
+                    text: "Min Stair Height"
+                    font_name: "cambria.ttc"
+                    font_size: 25
+                
+                Label:
+                    text: "Max Stair Height"
+                    font_name: "cambria.ttc"
+                    font_size: 25
+                
+                Label:
+                    text: "Minimum Stair Depth"
+                    font_name: "cambria.ttc"
+                    font_size: 25
+
+                Label:
+                    text: "Max Stair Depth"
+                    font_name: "cambria.ttc"
+                    font_size: 25
+
+            GridLayout:
+                cols: 1
+                rows: 6
+                spacing: 20
+                padding: 20
+                TextInput:
+                    id: StaircaseHeight
+                    text: 'Enter StairCase Height'
+                    on_focus: if self.text == "Enter StairCase Height": self.text = ""
+                    input_type: "number"
+
+                TextInput:
+                    id: StaircaseDepth
+                    text: 'Enter Stair Case Depth'
+                    on_focus: if self.text == "Enter Stair Case Depth": self.text = ""
+
+                TextInput:
+                    id: MinStairHeight
+                    text: 'Enter Min Stair Height'
+                    on_focus: if self.text == "Enter Min Stair Height": self.text = ""
+                    input_type: "number"
+
+                TextInput:
+                    id: MaxStairHeight
+                    text: 'Max Stair Height'
+                    on_focus: if self.text == 'Max Stair Height': self.text = ""
+                    input_type: "number"
+
+                TextInput:
+                    id: MinStairDepth
+                    text: '11'
+                    on_focus: if self.text == "Enter the min Depth of each stair here": self.text = ""
+                    input_type: "number"
+
+                TextInput:
+                    id: MaxStairDepth
+                    text: 'Max Stair Depth'
+                    on_focus: if self.text == 'Max Stair Depth': self.text = "" 
+                    input_type: "number"
+            BoxLayout:
+                orientation: "vertical"
+                padding: 20
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgba: (.2, .2, .2, .6)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                BoxLayout:
+                    padding: 20
+                    spacing: 10
+                    orientation: "vertical"
+                    Label:
+                        text: "The height of each stair"
+                        text_size: self.size
+                        valign: "middle"
+                        halign: "center"
+                        font_name: "cambriab.ttf"
+                        canvas.before:
+                            Color:
+                                rgba: (.5, .5, .5, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id: Stair_Height
+                        canvas.before:
+                            Color:
+                                rgba: (.8, .5, .5, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        valign: "middle"
+                        halign: "center"
+                        text: ""
+                        text_size: self.size
+                        font_size:  25
+                BoxLayout:
+                    orientation: "vertical"
+                    padding: 20
+                    spacing: 10
+                    Label:
+                        text: "The tread_depth of each stair"
+                        text_size: self.size
+                        valign: "middle"
+                        halign: "center"
+                        font_name: "cambriab.ttf"
+                        canvas.before:
+                            Color:
+                                rgba: (.5, .5, .5, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id: Tread_Depth
+                        canvas.before:
+                            Color:
+                                rgba: (.8, .5, .5, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        valign: "middle"
+                        halign: "center"
+                        text: ""
+                        text_size: self.size
+                        font_size: 25
+                BoxLayout:
+                    orientation: "vertical"
+                    padding: 20
+                    spacing: 10
+                    Label:
+                        text: "Number of Stairs"
+                        text_size: self.size
+                        valign: "middle"
+                        halign: "center"
+                        font_name: "cambriab.ttf"
+                        canvas.before:
+                            Color:
+                                rgba: (.5, .5, .5, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                    Label:
+                        id: NumberofStairs
+                        canvas.before:
+                            Color:
+                                rgba: (.8, .5, .5, 1)
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        valign: "middle"
+                        halign: "center"
+                        text: ""
+                        text_size: self.size
+                        font_size: 25
+                Button:
+                    size_hint_y: .2
+                    text: "Next"
+                    on_press: root.next()
+
         Button:
             text: "Calculate" 
             on_press: root.submit()
@@ -73,12 +200,16 @@
             font_size: 25
         Button:
             text: "Go Back"
-            background_color: (1,.5,0,1)
+            background_color: (.8, .5, .5, 1)
             on_press: app.root.current = "StartScreen"
             size_hint_y: .1
 
 <StartScreen>
     name: "StartScreen"
+    Image:
+        source: "background.png"
+        size_hint_y: 1
+        size_hint_x: 1
     BoxLayout:
         orientation: "vertical"
         Label:
@@ -87,19 +218,25 @@
             font_name: "fonts/cambriaz.ttf"
 
         BoxLayout:
-            padding: 20
+            padding: 50
+            spacing: 50
             orientation: "horizontal"
             Button:
                 text: "Solve For Flight Run"
                 font_name: "cambria.ttc"
                 font_size: 25
                 on_press: app.root.current = "Flight_Calculator"
+                text_size: self.size
+                halign: "center"
+                valign: "middle"
             Button:
                 text: "Solve for Stair Size"
                 on_press: app.root.current = "StairSize"
                 font_name: "cambria.ttc"
                 font_size: 25
-
+                text_size: self.size
+                halign: "center"
+                valign: "middle"
 <Flight_Calculator>
     name: "Flight_Calculator"
     BoxLayout:
