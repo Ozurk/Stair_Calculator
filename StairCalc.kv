@@ -73,6 +73,7 @@
                     on_focus: if self.text == "Enter Stair Case Depth": self.text = ""
                     valign: "middle"
                     halign: "center"
+                    input_type: "number"
                 TextInput:
                     id: MinStairHeight
                     on_focus: if self.text == "Enter Min Stair Height": self.text = ""
@@ -110,7 +111,7 @@
                         size: self.size
                         pos: self.pos
                 BoxLayout:
-                    padding: 15
+                    padding: 5
                     spacing: 5
                     orientation: "vertical"
                     Label:
@@ -209,7 +210,7 @@
             on_press: root.submit()
             size_hint_y: .1
             font_name: "fonts/cambria.ttc"
-            font_size: 25
+            font_size: 40
         Button:
             text: "Go Back"
             background_color: (.8, .5, .5, 1)
