@@ -14,8 +14,8 @@
             text_size: self.size
             valign: "middle"
             halign: "center"
-            font_name: "Cambriab.ttf"
-            font_size: 20
+            font_name: "fonts/cambriab.ttf"
+            font_size: 50
             size_hint_y: .2
         BoxLayout:
             orientation: 'horizontal'
@@ -27,33 +27,33 @@
                 size_hint_x: (4/9)
                 Label:
                     text: "Flight Height in Inches"
-                    font_name: "cambria.ttc"
-                    font_size: 15
+                    font_name: "fonts/cambria.ttc"
+                    font_size: 50
                 
                 Label:
                     text: "Flight Depth in Inches"
-                    font_name: "cambria.ttc"
-                    font_size: 15
+                    font_name: "fonts/cambria.ttc"
+                    font_size: 50
                 
                 Label:
                     text: "Min Stair Height"
-                    font_name: "cambria.ttc"
-                    font_size: 15
+                    font_name: "fonts/cambria.ttc"
+                    font_size: 50
                 
                 Label:
                     text: "Max Stair Height"
-                    font_name: "cambria.ttc"
-                    font_size: 15
+                    font_name: "fonts/cambria.ttc"
+                    font_size: 50
                 
                 Label:
                     text: "Minimum Stair Depth"
-                    font_name: "cambria.ttc"
-                    font_size: 15
+                    font_name: "fonts/cambria.ttc"
+                    font_size: 50
 
                 Label:
                     text: "Max Stair Depth"
-                    font_name: "cambria.ttc"
-                    font_size: 15
+                    font_name: "fonts/cambria.ttc"
+                    font_size: 50
 
             GridLayout:
                 cols: 1
@@ -118,8 +118,8 @@
                         text_size: self.size
                         valign: "middle"
                         halign: "center"
-                        font_name: "cambriab.ttf"
-                        font_size: 15
+                        font_name: "fonts/cambriab.ttf"
+                        font_size: 50
                         canvas.before:
                             Color:
                                 rgba: (.5, .5, .5, 1)
@@ -148,8 +148,8 @@
                         text_size: self.size
                         valign: "middle"
                         halign: "center"
-                        font_name: "cambriab.ttf"
-                        font_size: 15
+                        font_name: "fonts/cambriab.ttf"
+                        font_size: 50
                         canvas.before:
                             Color:
                                 rgba: (.5, .5, .5, 1)
@@ -168,7 +168,7 @@
                         halign: "center"
                         text: ""
                         text_size: self.size
-                        font_size: 10
+                        font_size: 30
                 BoxLayout:
                     orientation: "vertical"
                     padding: 5
@@ -178,8 +178,8 @@
                         text_size: self.size
                         valign: "middle"
                         halign: "center"
-                        font_name: "cambriab.ttf"
-                        font_size: 15
+                        font_name: "fonts/cambriab.ttf"
+                        font_size: 50
                         canvas.before:
                             Color:
                                 rgba: (.5, .5, .5, 1)
@@ -198,7 +198,7 @@
                         halign: "center"
                         text: ""
                         text_size: self.size
-                        font_size: 15
+                        font_size: 50
                 Button:
                     size_hint_y: .2
                     text: "Next"
@@ -208,7 +208,7 @@
             text: "Calculate" 
             on_press: root.submit()
             size_hint_y: .1
-            font_name: "cambria.ttc"
+            font_name: "fonts/cambria.ttc"
             font_size: 25
         Button:
             text: "Go Back"
@@ -220,8 +220,11 @@
     name: "StartScreen"
     Image:
         source: "background.png"
-        size_hint_y: 1
-        size_hint_x: 1
+        size_hint: None, None
+        height: root.height
+        width: root.width
+        fit_mode: "fill"
+
     BoxLayout:
         orientation: "vertical"
         spacing: 30
@@ -236,20 +239,20 @@
                         pos: self.pos
                 pos_hint: {"center_x": .5, "center_y": .5}
                 text: "Stair Calculator" 
-                font_size: 25
+                font_size: 70
                 font_name: "fonts/cambriaz.ttf"
                 color: (.1, .1, .2, 1)
 
         BoxLayout:
-            padding: 30
-            spacing: 50
+            padding: 80
+            spacing: 80
             orientation: "vertical"
             Button:
                 pos_hint: {"center_x": .5, "center_y": .5}
-                text: "Solve For Flight Run"
-                size_hint: (.8, .1)
-                font_name: "cambria.ttc"
-                font_size: 20
+                text: "Solve for Flight Run"
+                size_hint: (.5, .1)
+                font_name: "fonts/cambria.ttc"
+                font_size: 50
                 on_press: app.root.current = "Flight_Calculator"
                 text_size: self.size
                 halign: "center"
@@ -257,10 +260,10 @@
             Button:
                 pos_hint: {"center_x": .5, "center_y": .5}
                 text: "Solve for Stair Size"
-                size_hint: (.8, .1)
+                size_hint: (.5, .1)
                 on_press: app.root.current = "StairSize"
-                font_name: "cambria.ttc"
-                font_size: 20
+                font_name: "fonts/cambria.ttc"
+                font_size: 50
                 text_size: self.size
                 halign: "center"
                 valign: "middle"
@@ -270,13 +273,13 @@
         orientation: "vertical"
         Label:
             id: WarningLabel
-            font_name: "cambria.ttc"
+            font_name: "fonts/cambria.ttc"
             font_size: 30
             
         Label:
             text: "Flight Height"
-            font_name: "cambria.ttc"
-            font_size: 20
+            font_name: "fonts/cambria.ttc"
+            font_size: 50
         TextInput:
             id: Flight_Height
             text: "Input the Height of the Flight Here."
@@ -285,8 +288,8 @@
 
         Label:
             text: "Stair Height"
-            font_name: "cambria.ttc"
-            font_size: 20
+            font_name: "fonts/cambria.ttc"
+            font_size: 50
 
         TextInput:
             id: Stair_Height
@@ -296,8 +299,8 @@
 
         Label:
             text: "Stair Depth"
-            font_name: "cambria.ttc"
-            font_size: 20
+            font_name: "fonts/cambria.ttc"
+            font_size: 50
 
         TextInput:
             id: Stair_Depth
@@ -307,14 +310,14 @@
         BoxLayout:
             Button:
                 text: "Calculate"
-                font_name: "cambria.ttc"
-                font_size: 25
+                font_name: "fonts/cambria.ttc"
+                font_size: 50
                 on_press: root.calculate()
             BoxLayout:
                 orientation: "vertical"
                 Label:
                     text: "Calculated StairCase Run (Inches)"
-                    font_name: "cambria.ttc"
+                    font_name: "fonts/cambria.ttc"
                     text_size: self.size
                     halign: "center"
                     valign: "middle"
@@ -322,7 +325,7 @@
                 Label:
                     id: CalcDepth
                     text: ""
-                    font_size: 20
+                    font_size: 50
         Button:
             text: "Go Back"
             background_color: (1,.5,0,1)

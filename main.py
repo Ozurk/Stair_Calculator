@@ -5,8 +5,10 @@ import math
 from calculation import flight_calculator # Rename this 
 from calculation import flight_calc
 from kivy.base import Builder
-# Builder.load_file("StairCalc.kv") uncomment for linux and android
-from kivy.core.text import FontContextManager as FCM
+Builder.load_file("StairCalc.kv")
+from kivy.core.text import LabelBase
+
+# LabelBase.register(name="fonts/cambria.ttc", fn_regular="fonts/cambria.ttc", fn_bold="fonts/cambriab.ttf")
 
 
 class StairCalc(ScreenManager):
