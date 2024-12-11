@@ -230,44 +230,30 @@
         orientation: "vertical"
         spacing: 30
         RelativeLayout:
-            size_hint_y:.2
             Label:
+                pos_hint: {"x": 0, "y": .9}
+                size_hint_y: .1
                 canvas.before:
                     Color:
                         rgba: (.6, .6, .6, 1)
                     Rectangle:
                         size: self.size
                         pos: self.pos
-                pos_hint: {"center_x": .5, "center_y": .5}
                 text: "Stair Calculator" 
                 font_size: 70
                 font_name: "fonts/cambriaz.ttf"
                 color: (.1, .1, .2, 1)
 
-        BoxLayout:
-            padding: 80
-            spacing: 80
-            orientation: "vertical"
             Button:
                 pos_hint: {"center_x": .5, "center_y": .5}
-                text: "Solve for Flight Run"
-                size_hint: (.5, .1)
+                text: "Begin"
                 font_name: "fonts/cambria.ttc"
                 font_size: 50
                 on_press: app.root.current = "Flight_Calculator"
                 text_size: self.size
                 halign: "center"
                 valign: "middle"
-            Button:
-                pos_hint: {"center_x": .5, "center_y": .5}
-                text: "Solve for Stair Size"
                 size_hint: (.5, .1)
-                on_press: app.root.current = "StairSize"
-                font_name: "fonts/cambria.ttc"
-                font_size: 50
-                text_size: self.size
-                halign: "center"
-                valign: "middle"
 <Flight_Calculator>
     name: "Flight_Calculator"
     BoxLayout:
@@ -327,10 +313,20 @@
                     id: CalcDepth
                     text: ""
                     font_size: 50
-        Button:
-            text: "Go Back"
-            background_color: (1,.5,0,1)
-            on_press: app.root.current = "StartScreen"
+        Label:
+            size_hint_y: .1
+        BoxLayout:
+            padding: 10
+            spacing: 10
+            orientation: "horizontal"            
+            Button:
+                text: "Go Back"
+                background_color: (1,.5,0,1)
+                on_press: app.root.current = "StartScreen"
+            
+            Button:
+                on_press: app.root.current = "StairSize"
+                text: "Stair Size Calculator"
 
 
         
