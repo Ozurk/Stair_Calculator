@@ -45,11 +45,22 @@
     name: "Calculate"
     BoxLayout:
         orientation: "vertical"
+        padding: 30
         Label:
             text: "StairCalculator"
             size_hint_y: .1
-        DisplayScreen:
+        ScrollView:
             id: DisplayScreen
+            id: DisplayScreen
+            do_scroll_x: True
+            do_scroll_y: True
+            id: DisplayScreen
+            scroll_type: ['bars', 'content']
+            effect_cls: 'ScrollEffect'
+            bar_width: 10
+            scale: 10  # Default zoom level
+            minimum_zoom: 0.1
+            maximum_zoom: 10
         # User Input
         BoxLayout:
             orientation: "horizontal"
@@ -61,7 +72,7 @@
                     text: "Stair Info"
                 BoxLayout:
                     TextInput:
-                        id: Stairx
+                        id: StairX
                         text: "Stair Tread Depth"
                         on_focus: if self.text == "Stair Tread Depth": self.text = ""
                         input_type: "number"
@@ -92,20 +103,15 @@
                 id: NumberofStairs
                 input_type: "number"
                 text: "Number of Stairs"
-                on_focus: if self.text == "Stair Case Height": self.text = ""
+                on_focus: if self.text == "Number of Stairs": self.text = ""
             Button:
                 on_press: root.submit()
                 text: "Calculate"
     
-<DisplayScreen>
-    canvas.before:
-        Color:
-            rgba: .2, .2, .2, .5
-        Rectangle:
-            size: self.size
-            pos: self.pos
+    
 
 <Step>
+    size_hint: None, None
     canvas.before:
         Color:
             rgba: 1, 1, 1, .5

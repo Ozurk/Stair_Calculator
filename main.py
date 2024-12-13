@@ -5,10 +5,14 @@ import math
 from calculation import flight_calculator # Rename this 
 from calculation import flight_calc
 from kivy.base import Builder
-Builder.load_file("StairCalc.kv")
+# Builder.load_file("StairCalc.kv")
 from kivy.core.text import LabelBase
 from kivy.uix.widget import Widget
 from time import sleep
+from kivy.uix.scrollview import ScrollView
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
+from kivy.clock import Clock
 
 
 # LabelBase.register(name="fonts/cambria.ttc", fn_regular="fonts/cambria.ttc", fn_bold="fonts/cambriab.ttf")
@@ -24,6 +28,8 @@ class StairSize(Screen):
     number_of_stairs = NumericProperty(0)
     hypotenuse = NumericProperty(0)
     iteration = NumericProperty(0)
+    stairx = NumericProperty(0)
+    stairy = NumericProperty(0)
 
     solutions = []
 
@@ -36,31 +42,63 @@ class StairSize(Screen):
 
     def submit(self):
         try:
-            self.staircase_run = float(self.ids.StairCaseX.text)
-            self.staircase_height = float(self.ids.StairCaseY.text)
+            # self.staircase_run = float(self.ids.StairCaseX.text)
+            # self.staircase_height = float(self.ids.StairCaseY.text)
             self.number_of_stairs = int(self.ids.NumberofStairs.text)
+            self.stairx = float(self.ids.StairX.text)
+            self.stairy = float(self.ids.StairY.text)
         except ValueError:
             self.staircase_run = 100
             self.staircase_height = 100
             self.number_of_stairs = 20
+            self.stairx = 1
+            self.stairy = 1
         
 
-        self.build_staircase(self.number_of_stairs)
+        self.build_staircase(self.number_of_stairs, self.stairx, self.stairy)
 
-    def build_staircase(self, num_of_stairs):
-        # get displayscreen [where the stair graphics will be built]
+    def build_staircase(self, num_of_stairs, stair_x, stair_y):
+        # Get the DisplayScreen, which is a ScrollView
         screen = self.ids.DisplayScreen
-        screen.clear_widgets()
-        # calculate Stair width
-        step_width = screen.width / num_of_stairs
-        step_height = screen.height / num_of_stairs
-        display_position = screen.pos
+        screen.clear_widgets()  # Clear previous content
+
+        # Create a container (RelativeLayout) for the stairs
+        full_window = RelativeLayout(size_hint=(None, None))
+
+        # Calculate stair width and height
+        step_width = stair_x * 10
+        step_height = stair_y * 10
+
+        # Dynamically set the size of the full_window to fit all stairs
+        full_window.width = step_width * num_of_stairs
+        full_window.height = step_height * num_of_stairs
+
+        # Initial display position
+        display_position = (0, 0)
+
+        # Create and position each stair
         for x in range(num_of_stairs):
-            print(x)
-            stair = Step()
-            stair.size = (step_width, step_height)
-            stair.pos = (display_position[0] + (step_width * x)), (display_position[1] + (step_height * x))
-            screen.add_widget(stair)
+            stair = Step()  # Assuming Step is a custom widget class
+            stair.size_hint = (None, None)  # Disable automatic resizing
+            stair.size = (step_width, step_height)  # Set size explicitly
+            stair.pos = (display_position[0] + (step_width * x),  # Move right for each stair
+                        display_position[1] + (step_height * x))  # Move up for each stair
+            full_window.add_widget(stair)
+
+        # Add the full_window to the DisplayScreen (ScrollView)
+        screen.add_widget(full_window)
+
+        # Adjust zoom after layout is ready
+        def adjust_zoom(*args):
+            width_ratio = screen.width / full_window.width
+            height_ratio = screen.height / full_window.height
+            zoom_out_level = min(width_ratio, height_ratio)  # Choose the smaller ratio for fitting
+            screen.scroll_x = 0  # Reset horizontal scroll
+            screen.scroll_y = 1  # Reset vertical scroll to the top
+            screen.scale = zoom_out_level
+
+        Clock.schedule_once(adjust_zoom, 0.1)
+
 
 
 class StartScreen(Screen):
@@ -90,27 +128,6 @@ class Flight_Calculator(Screen):
         except ZeroDivisionError:
             self.ids.WarningLabel.text = "Cannot Divide by Zero"
             # self.build_staircase(self.number_of_stairs, self.flight_depth, self.flight_height)
-            self.build_staircase(5, 200, 100)
-
-    def build_staircase(self, num_of_stairs, staircase_x, staircase_y):
-        # get displayscreen [where the stair graphics will be built]
-        screen = self.ids.DisplayScreen
-        # calculate Stair width
-        step_width = screen.width / num_of_stairs
-        step_height = screen.height / num_of_stairs
-        display_position = screen.pos
-        for stair in range(num_of_stairs):
-            print(stair)
-            stair = Step()
-            stair.size = (step_width, step_height)
-            stair.pos = (display_position + (step_width * stair)), (display_position + (step_height * stair))
-
-            
-            
-
-        
-class DisplayScreen(Widget):
-    pass
 
 
 
