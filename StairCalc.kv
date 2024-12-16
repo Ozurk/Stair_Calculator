@@ -51,16 +51,15 @@
             size_hint_y: .1
         ScrollView:
             id: DisplayScreen
-            id: DisplayScreen
             do_scroll_x: True
             do_scroll_y: True
-            id: DisplayScreen
             scroll_type: ['bars', 'content']
             effect_cls: 'ScrollEffect'
             bar_width: 10
             scale: 10  # Default zoom level
             minimum_zoom: 0.1
             maximum_zoom: 10
+            # on_size: root.build_staircase(root.number_of_stairs, root.stairx, root.stairy)
         # User Input
         BoxLayout:
             orientation: "horizontal"

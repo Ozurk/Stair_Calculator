@@ -51,8 +51,8 @@ class StairSize(Screen):
             self.staircase_run = 100
             self.staircase_height = 100
             self.number_of_stairs = 20
-            self.stairx = 1
-            self.stairy = 1
+            self.stairx = 11
+            self.stairy = 9
         
 
         self.build_staircase(self.number_of_stairs, self.stairx, self.stairy)
@@ -62,42 +62,45 @@ class StairSize(Screen):
         screen = self.ids.DisplayScreen
         screen.clear_widgets()  # Clear previous content
 
-        # Create a container (RelativeLayout) for the stairs
+    # Create a container (RelativeLayout) for the stairs
         full_window = RelativeLayout(size_hint=(None, None))
 
-        # Calculate stair width and height
+    # Calculate stair width and height
         step_width = stair_x * 10
         step_height = stair_y * 10
 
-        # Dynamically set the size of the full_window to fit all stairs
+    # Dynamically set the size of the full_window to fit all stairs
         full_window.width = step_width * num_of_stairs
         full_window.height = step_height * num_of_stairs
 
-        # Initial display position
+    # Check if the stairs go off-screen and resize if necessary
+        max_width = screen.width
+        max_height = screen.height
+        print(screen.width)
+
+        if full_window.width > max_width or full_window.height > max_height:
+            scale_factor = min(max_width / full_window.width, max_height / full_window.height)
+            step_width *= scale_factor
+            step_height *= scale_factor
+
+    # Update the full_window dimensions after scaling
+        full_window.width = step_width * num_of_stairs
+        full_window.height = step_height * num_of_stairs
+
+    # Initial display position
         display_position = (0, 0)
 
-        # Create and position each stair
-        for x in range(num_of_stairs):
-            stair = Step()  # Assuming Step is a custom widget class
-            stair.size_hint = (None, None)  # Disable automatic resizing
-            stair.size = (step_width, step_height)  # Set size explicitly
-            stair.pos = (display_position[0] + (step_width * x),  # Move right for each stair
-                        display_position[1] + (step_height * x))  # Move up for each stair
-            full_window.add_widget(stair)
 
-        # Add the full_window to the DisplayScreen (ScrollView)
+    # Create and position each stair
+        for columns in range(num_of_stairs):
+            for stairs in range(columns):
+                stair = Step(size_hint=(None, None))
+                stair.size = (step_width, step_height)
+                stair.pos = (display_position[0] + (stair.width * columns), display_position[1] + (stair.height * stairs))
+                full_window.add_widget(stair)
+
+    # Add the full_window to the DisplayScreen (ScrollView)
         screen.add_widget(full_window)
-
-        # Adjust zoom after layout is ready
-        def adjust_zoom(*args):
-            width_ratio = screen.width / full_window.width
-            height_ratio = screen.height / full_window.height
-            zoom_out_level = min(width_ratio, height_ratio)  # Choose the smaller ratio for fitting
-            screen.scroll_x = 0  # Reset horizontal scroll
-            screen.scroll_y = 1  # Reset vertical scroll to the top
-            screen.scale = zoom_out_level
-
-        Clock.schedule_once(adjust_zoom, 0.1)
 
 
 
