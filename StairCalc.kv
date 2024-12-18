@@ -17,6 +17,7 @@
         spacing: 30
         RelativeLayout:
             Label:
+                id: MainLabel
                 pos_hint: {"x": 0, "y": .9}
                 size_hint_y: .1
                 canvas.before:
@@ -45,24 +46,52 @@
     name: "Calculate"
     BoxLayout:
         orientation: "vertical"
-        padding: 30
         Label:
             text: "StairCalculator"
             size_hint_y: .1
-        ScrollView:
-            id: DisplayScreen
-            do_scroll_x: True
-            do_scroll_y: True
-            scroll_type: ['bars', 'content']
-            effect_cls: 'ScrollEffect'
-            bar_width: 10
-            scale: 10  # Default zoom level
-            minimum_zoom: 0.1
-            maximum_zoom: 10
-            # on_size: root.build_staircase(root.number_of_stairs, root.stairx, root.stairy)
-        # User Input
         BoxLayout:
-            orientation: "horizontal"
+            orientation: 'horizontal'  
+            RelativeLayout:    
+                ScrollView:
+                    id: DisplayScreen
+                    do_scroll_x: True
+                    do_scroll_y: True
+                    scroll_type: ['bars', 'content']
+                    effect_cls: 'ScrollEffect'
+                    bar_width: 10
+                    scale: 10  # Default zoom level
+                    minimum_zoom: 0.1
+                    maximum_zoom: 10
+                Label:
+                    id: FlightAngleLabel
+                    size_hint: .3, .2
+                    pos_hint: {'right': .75}
+                    text: 'Flight Angle: ' + str(root.flight_angle)
+            Label:
+                id: StairCaseheightLabel
+                text: 'Flight Height\n' + str(root.staircase_height) 
+                text_size: self.size
+                halign: 'center'
+                valign: 'middle'
+                size_hint_x: .15  # Ensure this matches your desired size
+                canvas.before:
+                    Color:
+                        rgba: (.2, .2, .2, 1)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+        Label:
+            id: StairCaseRunLabel
+            text: "StairCase Run " + str(root.staircase_run) 
+            size_hint_y: .15
+            canvas.before:
+                Color:
+                    rgba: (.2, .2, .2, 1)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+        BoxLayout:
+            orientation: "horizontal" 
             size_hint_y: .25
             # User Input Varibles For Stair
             BoxLayout:
@@ -70,38 +99,53 @@
                 Label:
                     text: "Stair Info"
                 BoxLayout:
+                    Label:
+                        text: "Stair Depth"
+                        text_size: self.size
                     TextInput:
                         id: StairX
-                        text: "Stair Tread Depth"
+                        text: str(root.stairx)
                         on_focus: if self.text == "Stair Tread Depth": self.text = ""
                         input_type: "number"
+                    Label:
+                        text: "Stair Height"
+                        text_size: self.size
                     TextInput:
                         id: StairY
-                        text: "Stair Height"
+                        text: str(root.stairy)
                         on_focus: if self.text == "Stair Height": self.text = ""
                         input_type: "number"
             # User Input Varibles For StairCase
             BoxLayout:
                 orientation: "vertical"
                 Label:
+                    text_size: self.size
                     text: "Stair Case Info"
                 BoxLayout:
+                    Label:
+                        text: 'Flight Depth'
+                        text_size: self.size
                     TextInput:
                         id: StairCaseX
-                        text: "Stair Case Depth"
+                        text: str(root.staircase_run)
                         on_focus: if self.text == "Stair Case Depth": self.text = ""
                         input_type: "number"
+                    Label:
+                        text_size: self.size
+                        text: "Flight Height"
                     TextInput:
                         id: StairCaseY
-                        text: "Stair Case Height"
+                        text: str(root.staircase_height)
                         on_focus: if self.text == "Stair Case Height": self.text = ""
                         input_type: "number"
         BoxLayout:
             size_hint_y: .2
+            Label:
+                text: "Number of Stairs"
             TextInput:
                 id: NumberofStairs
                 input_type: "number"
-                text: "Number of Stairs"
+                text: str(root.number_of_stairs)
                 on_focus: if self.text == "Number of Stairs": self.text = ""
             Button:
                 on_press: root.submit()
@@ -113,7 +157,7 @@
     size_hint: None, None
     canvas.before:
         Color:
-            rgba: 1, 1, 1, .5
+            rgba: .1, .3, .5, .5
         Rectangle:
             size: self.size
             pos: self.pos

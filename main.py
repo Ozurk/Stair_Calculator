@@ -30,8 +30,7 @@ class StairSize(Screen):
     iteration = NumericProperty(0)
     stairx = NumericProperty(0)
     stairy = NumericProperty(0)
-
-    solutions = []
+    flight_angle = NumericProperty(0)
 
     def validate_input(self, value):
         """Validate numeric input."""
@@ -41,20 +40,35 @@ class StairSize(Screen):
             return None
 
     def submit(self):
+        
         try:
             # self.staircase_run = float(self.ids.StairCaseX.text)
             # self.staircase_height = float(self.ids.StairCaseY.text)
             self.number_of_stairs = int(self.ids.NumberofStairs.text)
             self.stairx = float(self.ids.StairX.text)
             self.stairy = float(self.ids.StairY.text)
+            self.staircase_height = float(self.ids.StairCaseY.text)
+            self.staircase_run = float(self.ids.StairCaseX.text)
         except ValueError:
             self.staircase_run = 100
             self.staircase_height = 100
             self.number_of_stairs = 20
             self.stairx = 11
             self.stairy = 9
+            self.staircase_height = 100
+            self.staircase_run = 150
+        except TypeError:
+            self.staircase_run = 100
+            self.staircase_height = 100
+            self.number_of_stairs = 20
+            self.stairx = 11
+            self.stairy = 9
+            self.staircase_height = 100
+            self.staircase_run = 150
+            
         
-
+        
+        self.hypotenuse, self.flight_angle = flight_calculator(self.staircase_height, self.staircase_run)
         self.build_staircase(self.number_of_stairs, self.stairx, self.stairy)
 
     def build_staircase(self, num_of_stairs, stair_x, stair_y):
@@ -64,6 +78,7 @@ class StairSize(Screen):
 
     # Create a container (RelativeLayout) for the stairs
         full_window = RelativeLayout(size_hint=(None, None))
+
 
     # Calculate stair width and height
         step_width = stair_x * 10
@@ -100,8 +115,8 @@ class StairSize(Screen):
                 full_window.add_widget(stair)
 
     # Add the full_window to the DisplayScreen (ScrollView)
+        full_window.pos = (0, 0)
         screen.add_widget(full_window)
-
 
 
 class StartScreen(Screen):
@@ -119,6 +134,7 @@ class Flight_Calculator(Screen):
     number_of_stairs = NumericProperty()
     def calculate(self):
         try:
+            # Heres where my trig knowledge comes in handy
             self.flight_height = float(self.ids.Flight_Height.text)
             self.stair_height = float(self.ids.Stair_Height.text)
             self.stair_depth = float(self.ids.Stair_Depth.text)
@@ -130,7 +146,7 @@ class Flight_Calculator(Screen):
             self.ids.WarningLabel.color = (1, 0, 0, 1)
         except ZeroDivisionError:
             self.ids.WarningLabel.text = "Cannot Divide by Zero"
-            # self.build_staircase(self.number_of_stairs, self.flight_depth, self.flight_height)
+
 
 
 
